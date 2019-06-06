@@ -7,7 +7,6 @@
 
 <script>
   import headerMenu from '@/components/headerMenu'
-
   export default {
         name: "index",
         components:{

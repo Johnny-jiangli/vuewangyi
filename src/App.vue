@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import 'bootstrap/dist/css/bootstrap.css'
+  import 'bootstrap-vue/dist/bootstrap-vue.css'
 export default {
   name: 'App'
 }
@@ -17,5 +19,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   /*margin-top: 60px;*/
+  /*background-color:#42b983;*/
 }
 </style>

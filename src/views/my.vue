@@ -1,10 +1,17 @@
 <template>
-    <div>我的音乐</div>
+    <div>
+      <header-menu></header-menu>
+      <p>dsadsa</p>
+    </div>
 </template>
 
 <script>
+  import headerMenu from '@/components/headerMenu'
     export default {
-        name: "my"
+        name: "my",
+      components:{
+          headerMenu
+      }
     }
 </script>
 
