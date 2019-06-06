@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="recommendMainBox">
   <div class="carousel carouselBackgroun">
     <div class="carouselItem">
       <div class="bfc">
@@ -25,6 +25,30 @@
             <el-col :span="6">
               <div class="recommendAside">
                 <login-box></login-box>
+                <div style="padding:5px 15px;">
+                  <div style="border-bottom: 2px solid #ccc;height:35px">
+                    <div class="float-left"><h5>入驻歌手</h5></div>
+                    <div class="float-right">更多 <i class="el-icon-d-arrow-right" style="color: red"></i></div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <aside-sub></aside-sub>
+                <aside-sub></aside-sub>
+                <aside-sub></aside-sub>
+                <aside-sub></aside-sub>
+                <aside-sub></aside-sub>
+                <aside-sub></aside-sub>
+                <aside-sub></aside-sub>
+                <div class="yinyueren">
+                  <el-button size="mini">申请成为音乐人</el-button>
+                </div>
+                <div style="padding:5px 15px;">
+                  <div style="border-bottom: 2px solid #ccc;height:35px">
+                    <div class="float-left"><h5>热门主播</h5></div>
+                    <div class="float-right">更多 <i class="el-icon-d-arrow-right" style="color: red"></i></div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
                 <aside-sub></aside-sub>
                 <aside-sub></aside-sub>
                 <aside-sub></aside-sub>
@@ -61,6 +85,9 @@
     }
 </script>
 <style scoped>
+  .recommendMainBox{
+    width: 100%;
+  }
   .carouselBackgroun{
     background-color:#42b983;
   }
@@ -81,8 +108,6 @@
   .recommendAside{
     border-right: none;
     height: 1500px;
-
-    overflow: hidden;
   }
   .recommendMain{
     padding: 20px 20px;
@@ -108,5 +133,11 @@
   .aside{
     border:1px solid #ccc;
     overflow:hidden;
+  }
+  .yinyueren{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: center;
   }
 </style>

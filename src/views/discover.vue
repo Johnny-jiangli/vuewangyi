@@ -1,8 +1,10 @@
 <template>
   <div style="height: 100%;width: 100%;overflow-x:hidden;-ms-overflow-y:scroll;overflow-y:scroll;overscroll-behavior-y: auto">
     <header-menu></header-menu>
+    <div>
       <tag></tag>
       <router-view></router-view>
+    </div>
     </div>
 </template>
 
