@@ -1,7 +1,14 @@
 <template>
     <div>
-      <header-menu></header-menu>
-      <router-view></router-view>
+      <el-container>
+        <el-header height="70">
+          <header-menu></header-menu>
+        </el-header>
+        <el-main style="height: 1500px">
+          <router-view></router-view>
+        </el-main>
+        <el-footer height="300px">Footer</el-footer>
+      </el-container>
     </div>
 </template>
 
@@ -17,4 +24,7 @@
 
 <style scoped>
 
+.el-header,.el-main,.el-footer{
+  padding: 0;
+}
 </style>

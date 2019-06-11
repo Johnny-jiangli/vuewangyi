@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="tagContentImg">
-
       <el-row :gutter="20">
         <el-col :span="6" v-for="(fit,key,index) in fits" :key="fit" style="position: relative">
           <el-image
@@ -18,7 +17,6 @@
     </div>
   </div>
 </template>
-
 <script>
     export default {
         name: "tagContentBox",

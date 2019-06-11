@@ -1,10 +1,8 @@
 <template>
   <div class="tagSty">
-    <div class="tagContent">
       <ul class="">
-        <li v-for="(item,key,index) in items"  :key="index"><a href="#">{{item.label}}</a></li>
+        <li v-for="(item,key,index) in items"  :key="index" @click="active(item.id)"><router-link :to="item.url"  :class="{active: showId == item.id}">{{item.label}}</router-link> </li>
       </ul>
-    </div>
   </div>
 
 </template>
@@ -14,22 +12,29 @@
         name: "tag",
         data(){
           return {
+            showId:1,
             items: [
-              { type: '', label: '推荐' },
-              { type: 'success', label: '排行榜' },
-              { type: 'info', label: '歌单' },
-              { type: 'danger', label: '主播电台' },
-              { type: 'warning', label: '歌手' },
-              { type: 'warning', label: '新歌上架' }
+              { id:1,type: '', label: '推荐' ,url:'/discover/recommend'},
+              { id:2,type: 'success', label: '排行榜' ,url:'/discover/toplist'},
+              { id:3,type: 'info', label: '歌单' ,url:'/discover/playlist'},
+              { id:4,type: 'danger', label: '主播电台', url:'/discover/djradio'},
+              { id:5,type: 'warning', label: '歌手' ,url:'/discover'},
+              { id:6,type: 'warning', label: '新歌上架',url:'/discover' }
             ]
           }
+        },
+      methods:{
+        active(id){
+          this.showId = id;
+          console.log(this.showId)
         }
+      }
     }
 </script>
 
 <style scoped>
 .tagSty{
-  height: 30px;
+  height: 40px;
   width: 100%;
   background-color:red;
   display: flex;
@@ -38,15 +43,14 @@
   justify-items: center;
   justify-content: center;
 }
-.tagContent{
-  width: 600px;
-  min-width: 600px;
-}
+
   ul{
+    min-width: 500px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-items: flex-start;
+    align-items: center;
     justify-content: space-between;
   }
   ul li{
@@ -68,4 +72,12 @@
     border-radius: 15px;
     border: none;
   }
+.active{
+  background-color: #9B0909;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  border: none;
+}
+
 </style>
