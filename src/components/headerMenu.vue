@@ -57,6 +57,9 @@
 <style>
   .warContainer,.badgeWar{
     overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
 
   .el-menu.el-menu--horizontal{

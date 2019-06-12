@@ -1,38 +1,57 @@
 <template>
-  <div>
     <div class="tagContentImg">
       <el-row :gutter="20">
-        <el-col :span="6" v-for="(fit,key,index) in fits" :key="fit" style="position: relative">
+        <el-col :span="6" v-for="(item,key,index) in playList" :key="key" style="position: relative">
           <el-image
-          style="width: 140px; height: 188px"
-          :src="url"
-          fit="cover"></el-image>
+          style="width: 144px; height: 188px"
+          :src="item.picUrl"
+          fit="cover"
+          @click="clickPlay(item.id)"></el-image>
           <div class="videoPlay">
-            <span class="float-left" style="color: #fff;font-size: 16px;"><i class="el-icon-headset" style="margin-right: 10px"></i><span>1233</span></span>
+            <span class="float-left" style="color: #fff;font-size: 12px;"><i class="el-icon-headset" style="margin-right: 10px"></i><span>{{playCount(item.playCount)}}</span></span>
             <i class="el-icon-video-play float-right" style="color: #91acda;font-size: 20px" ></i>
           </div>
-          <div class="demonstration" style="height: 50px">{{ fit }}</div>
+          <div class="demonstration" style="height: 50px;font-size: 12px">{{ item.name }}</div>
         </el-col>
       </el-row>
-    </div>
-  </div>
-</template>
+    </div></template>
 <script>
     export default {
         name: "tagContentBox",
       data() {
         return {
           fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
-          url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+          url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+          playList:[],
         }
+      },
+      methods:{
+          getRecommendPlayListData(){
+            this.axios.get('personalized').then((res)=>{
+              console.log('推荐歌单')
+              console.log(res)
+              this.playList = res.data.result;
+            })
+          },
+        playCount(count){
+          return parseInt(count)
+        },
+        getAl(){},
+        clickPlay(data){
+            console.log(data)
+          this.$router.go('/discover/playlist')
+        }
+      },
+      computed:{
+
+      },
+      mounted() {
+          this.getRecommendPlayListData()
       }
     }
 </script>
 
 <style scoped>
-  .block{
-  height: auto;
-  }
   .tagContentImg{
     display:flex;
     -ms-flex-direction: row;

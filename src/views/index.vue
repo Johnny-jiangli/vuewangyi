@@ -1,15 +1,15 @@
 <template>
-    <div>
-      <el-container>
+  <el-container>
         <el-header height="70">
           <header-menu></header-menu>
         </el-header>
-        <el-main style="height: 1500px">
+        <el-main>
           <router-view></router-view>
         </el-main>
-        <el-footer height="300px">Footer</el-footer>
+        <el-footer>
+
+        </el-footer>
       </el-container>
-    </div>
 </template>
 
 <script>
@@ -18,7 +18,8 @@
         name: "index",
         components:{
           headerMenu
-        }
+        },
+      methods:{}
     }
 </script>
 
