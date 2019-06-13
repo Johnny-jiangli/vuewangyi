@@ -16,10 +16,10 @@ const routes= [
       },
       title: '发现音乐',
       children: [
-        {path:'/test',component:()=>import('@/components/player')},
         {path:'/my',title:'我的音乐',component:()=> import('@/views/my')},
+        {path:'/friend',title:'朋友',component:()=> import('@/views/friend')},
         {path:'/store/product',title:'商城',component:()=> import('@/views/store')},
-        {path:'/nmusician/web/index#/',title:'音乐人',component:()=> import('@/views/nmusician')},
+        {path:'/nmusician/web/index',title:'音乐人',component:()=> import('@/views/nmusician')},
         {path:'/download',title:'下载客户端',component:()=> import('@/views/download')},
         {
           path:'/discover',
@@ -29,13 +29,17 @@ const routes= [
             {path:'recommend',title:'推荐',component:()=> import('@/views/recommend')},
             {path:'toplist',title:'排行榜',component:()=> import('@/views/toplist')},
             {path:'playlist', title:'歌单',component:()=> import('@/views/playlist')},
-            {path:'playlists', title:'歌单',component:()=> import('@/views/playLists')},
+            {path:'playlists/:id', title:'歌单',component:()=> import('@/views/playLists')},
             {path:'djradio',title:'主播电台',component:()=>import('@/views/djradio')}
           ]
         },
       ]
     },
-
+  {
+    path:'/musicIndex',
+    name:'musicIndex',
+    component:()=>import('@/views/musicIndex')
+  }
   ]
 
 

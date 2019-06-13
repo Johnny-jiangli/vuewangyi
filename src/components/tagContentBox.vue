@@ -1,20 +1,22 @@
 <template>
     <div class="tagContentImg">
       <el-row :gutter="20">
-        <el-col :span="6" v-for="(item,key,index) in playList" :key="key" style="position: relative">
+        <el-col :span="6" v-for="(item,key,index) in playList" :key="index">
           <el-image
-          style="width: 144px; height: 188px"
+          style="width: 144px;height: 144px"
           :src="item.picUrl"
           fit="cover"
-          @click="clickPlay(item.id)"></el-image>
-          <div class="videoPlay">
-            <span class="float-left" style="color: #fff;font-size: 12px;"><i class="el-icon-headset" style="margin-right: 10px"></i><span>{{playCount(item.playCount)}}</span></span>
-            <i class="el-icon-video-play float-right" style="color: #91acda;font-size: 20px" ></i>
-          </div>
-          <div class="demonstration" style="height: 50px;font-size: 12px">{{ item.name }}</div>
+          @click="testClick(item.id)">
+          </el-image>
+<!--          <div class="videoPlay">-->
+<!--            <span class="float-left" style="color: #fff;font-size: 12px;"><i class="el-icon-headset" style="margin-right: 10px"></i><span>{{playCount(item.playCount)}}</span></span>-->
+<!--            <i class="el-icon-video-play float-right" style="color: #91acda;font-size: 20px" ></i>-->
+<!--          </div>-->
+<!--          <div class="demonstration" style="height: 30px;font-size: 12px" @click="clickPlay(item.id)">{{ item.name }}</div>-->
         </el-col>
       </el-row>
-    </div></template>
+    </div>
+</template>
 <script>
     export default {
         name: "tagContentBox",
@@ -39,7 +41,12 @@
         getAl(){},
         clickPlay(data){
             console.log(data)
-          this.$router.go('/discover/playlist')
+          console.log('dianji')
+          this.$router.push('playlists/'+id)
+        },
+        testClick(id){
+            console.log('测试')
+            this.$router.push('playlists/'+id)
         }
       },
       computed:{
@@ -54,11 +61,12 @@
 <style scoped>
   .tagContentImg{
     display:flex;
+    height: auto;
     -ms-flex-direction: row;
     flex-direction: row;
     flex-wrap: wrap;
     -ms-flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   .videoPlay{
     width: 140px;

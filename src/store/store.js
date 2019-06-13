@@ -12,7 +12,8 @@ export default new Vuex.Store({
     token: null,
     title: '',
     count:0,
-    playList:[]
+    playList:[],
+    index:0,
 
   },
   mutations: {
@@ -32,21 +33,33 @@ export default new Vuex.Store({
     },
     pushPlayList:(state ,data)=>{
       data = JSON.parse(data);
+      let len = state.playList.length;
+      for (let i = 0; i < len ;i++){
+        if(state.playList[i].id === data.id){
+          return false
+        }
+      }
       state.playList.push(data)
-      // localStorage.setItem('playList',JSON.stringify(this.state.playList))
     },
     playListData:(s,data)=>{
       s.playList = data
     },
     delPlayList:(state,data)=>{
       state.playList.splice(data,1)
+    },
+    delAllPlayList:(state)=>{
+      state.playList = [];
     }
   },
   actions:{
     increment (context) {
       context.commit('increment')
     },
+    delAllPlayList({commit}){
+      commit('delAllPlayList')
+    },
     pushPlayList({commit},obj){
+
       commit('pushPlayList',obj)
     },
     delPlayList({commit},data){

@@ -1,23 +1,27 @@
 <template>
-  <div class="warContainer" id="headerMenu">
-    <el-menu
+  <el-menu
       :default-active="activeIndex2"
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
       background-color="#242424"
       text-color="#ccc"
+      router
       active-text-color="#fff">
-<!--      https://music.163.com/style/web2/img/frame/topbar.png?4e044cfda10844a755f56411928465ce-->
-      <h1 class="logo"><a hidefocus="true" href="/#"></a></h1>
-      <el-menu-item index="1" >发现音乐</el-menu-item>
-      <el-menu-item index="2" >我的音乐</el-menu-item>
-      <el-menu-item index="3" >朋友</el-menu-item>
-      <el-menu-item index="4" >商城</el-menu-item>
-      <el-menu-item index="5" >音乐人</el-menu-item>
-      <el-badge value="HOT" class="headerBadge">
-          <el-menu-item index="6" >下载客户端</el-menu-item>
-      </el-badge>
+      <h1 class="logo" @click="clickGoIndexPath">
+      </h1>
+      <el-menu-item index="1">
+        发现音乐
+      </el-menu-item>
+      <el-menu-item index="/my" >我的音乐</el-menu-item>
+      <el-menu-item index="/friend" >朋友</el-menu-item>
+      <el-menu-item index="/store/product" >商城</el-menu-item>
+      <el-menu-item index="/nmusician/web/index" >音乐人</el-menu-item>
+        <el-menu-item index="/download" >
+          下载客户端
+          <el-badge value="HOT" class="headerBadge">
+          </el-badge>
+        </el-menu-item>
       <div style="" class="flexSty">
         <el-input v-model="input" placeholder="音乐/视频/用户" size="mini">
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
@@ -25,7 +29,7 @@
       </div>
       <div class="flexSty">
         <el-button round size="mini" id="author">
-          创作者中心
+          <router-link to="/download" >创作者中心</router-link>
         </el-button>
       </div>
       <el-submenu index="7">
@@ -35,7 +39,6 @@
         <el-menu-item index="7-3">0000</el-menu-item>
       </el-submenu>
     </el-menu>
-  </div>
 </template>
 <script>
   export default {
@@ -47,6 +50,9 @@
       };
     },
     methods: {
+      clickGoIndexPath(){
+        this.$router.push('/')
+      },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       }
@@ -55,13 +61,6 @@
 </script>
 
 <style>
-  .warContainer,.badgeWar{
-    overflow: hidden;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
   .el-menu.el-menu--horizontal{
     border-bottom:none;
   }
@@ -89,14 +88,15 @@
     border-radius: 15px;
   }
   .headerBadge{
-    margin-top: -10px;
+    margin-top: -30px;
+    margin-right: 40px;
   }
   #headerMenu .el-badge__content.is-fixed{
     position: absolute;
     top: 17px;
   }
   .logo{
-    background: url(../assets/topbar.png) no-repeat 0 9999px;
+    background: url(../../assets/topbar.png) no-repeat 0 9999px;
     float: left;
     width: 176px;
     min-width: 176px;
@@ -107,8 +107,18 @@
   }
   #author{
     background-color:transparent;
-    border:1px solid #ccc;
+    border:1px solid #cc9c90;
     margin-left: 10px;
     margin-right: 10px;
+  }
+  #author:hover{
+    border:1px solid white;
+  }
+  #author a{
+    color:#99a9bf;
+  }
+  #author a:hover{
+    color: white;
+    text-decoration: none;
   }
 </style>

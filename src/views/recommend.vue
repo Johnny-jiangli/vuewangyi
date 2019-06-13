@@ -14,14 +14,16 @@
   <div class="carousel">
     <div class="carouselItem recommendStyle">
           <el-row type="flex" class="">
-            <el-col :span="18"><div class="recommendMain">
-              <recommend-title-box></recommend-title-box>
+            <el-col :span="18">
+<!--              <div class="recommendMain">-->
+<!--              <recommend-title-box></recommend-title-box>-->
               <tag-content-box ></tag-content-box>
               <!--<recommend-title-box></recommend-title-box>-->
               <!--<tag-content-box></tag-content-box>-->
               <!--<recommend-title-box></recommend-title-box>-->
               <!--<tag-content-box></tag-content-box>-->
-            </div></el-col>
+<!--            </div>-->
+            </el-col>
             <el-col :span="6">
               <div class="recommendAside">
                 <login-box></login-box>
@@ -194,7 +196,9 @@
         },
         clickImg(item){
           console.log(item)
-        }
+          this.$router.push('playlists/'+item.targetId)
+        },
+
       },
       mounted() {
           console.log('recommend')

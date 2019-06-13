@@ -7,6 +7,7 @@
                    @timeupdate="updateTime"
                    controls></audio>
           </div>
+          <el-button @click="deleteAllPlay">清空</el-button>
           <div v-for="(item,index) in test1" :key="index">
             {{item.name}}
             <el-button @click="deletePlay(index)">X</el-button>
@@ -30,7 +31,7 @@
                     <div class="title">{{playlist.name}}</div>
                   </div>
                   <div class="btnGround playTitle">
-                    <el-button type="primary" icon="el-icon-video-play" size="mini">播放</el-button>
+                    <el-button type="primary" icon="el-icon-video-play" size="mini" @click="addAllPlaylist">播放</el-button>
                     <el-button  icon="el-icon-folder-add" size="mini">（{{playlist.subscribedCount}}）</el-button>
                     <el-button  icon="el-icon-share" size="mini">（{{playlist.shareCount}}）</el-button>
                   <el-button icon="el-icon-chat-dot-square" size="mini">（{{playlist.commentCount}}）</el-button>
@@ -126,6 +127,16 @@
           }
       },
       methods:{
+        addAllPlaylist(){
+          console.log('增加全部')
+          for (let i = 0 ,n = this.tracks.length ;i < n ;i++){
+            let obj =JSON.stringify(this.tracks[i]);
+            this.$store.dispatch('pushPlayList',obj);
+          }
+        },
+        deleteAllPlay(){
+          this.$store.dispatch('delAllPlayList')
+        },
         deletePlay(index){
           this.$store.dispatch('delPlayList',index)
         },
@@ -260,24 +271,9 @@
           myaudio.currentTime = timelength * value / 100;
         },
         addPlaylist(data){
-          console.log(data);
-          console.log('判断')
-          console.log(this.test1.length)
-          if(this.test1.length == 0){
-            let obj =JSON.stringify(data);
-            this.$store.dispatch('pushPlayList',obj)
-          }
-            for (let i = 0 ; i < this.test1.length ;i++){
-              if(this.test1[i].id !== data.id){
-                let obj =JSON.stringify(data)
-                this.$store.dispatch('pushPlayList',obj)
-                console.log(this.listA)
-              }else {
-                console.log('相同')
-              }
-            }
+          let obj =JSON.stringify(data);
+          this.$store.dispatch('pushPlayList',obj);
           this.axios.get('/song/url?id='+data.id).then(res=>{
-            console.log(res)
             if (res.data.data[0].url === null) {
               console.log('歌曲加载错误');
             } else {
@@ -290,13 +286,12 @@
           })
         },
         getData(){
-            this.axios.get('/playlist/detail?id=24381616').then(res=>{
-              console.log('获取信息')
+          console.log(this.$route.params.id)
+            this.axios.get('/playlist/detail?id='+this.$route.params.id).then(res=>{
               console.log(res)
               this.playlist =res.data.playlist
               this.tracks = res.data.playlist.tracks
               console.log(this.tracks)
-
             })
           },
         transitionMoment(ms){
