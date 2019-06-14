@@ -28,6 +28,19 @@ export default {
 #app .el-slider__bar{
   background-color: red;
 }
+#app .player .el-table thead{
+  display: none;
+}
+#app .player .el-table th,#app .player .el-table tr{
+  background: #000000;
+}
+#app .player .el-table tr:hover,#app .player .el-table--enable-row-hover .el-table__body tr:hover>td {
+  background-color:#2c2c2c;
+  color: #fff;
+}
+#app .player .el-table td, #app .player .el-table th.is-leaf{
+  border-bottom:none;
+}
   #app .el-slider__button {
     width: 16px;
     height: 16px;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="player">
     <div class="">
       <audio :src="audiourl" id="audioPlay" @canplay="canPlaySong"
              @timeupdate="updateTime"
@@ -10,18 +10,19 @@
         <div class="m-playbar m-playbar-unlock">
           <div class="wrap" id="g_player">
             <div class="btns">
-              <a href="javascript:;" hidefocus="true" data-action="prev" class="prv" title="上一首(ctrl+←)">上一首</a>
-              <a href="javascript:;" hidefocus="true" data-action="play" class="play j-flag" title="播放/暂停(p)">播放/暂停</a>
-              <a href="javascript:;" hidefocus="true" data-action="next" class="next" title="下一首(ctrl+→)">下一首</a>
+              <a href="javascript:;" hidefocus="true" data-action="prev" class="prv" title="上一首(ctrl+←)" @click="controlPlayerPrv">上一首</a>
+              <a href="javascript:;" hidefocus="true" data-action="play" class="play j-flag" :class="[playBgIndex ? playTrue:playFalse]" title="播放/暂停(p)" @click="controlPlayer">播放/暂停</a>
+              <a href="javascript:;" hidefocus="true" data-action="next" class="next" title="下一首(ctrl+→)" @click="controlPlayerNext">下一首</a>
             </div>
           </div>
         </div>
         <div class="progress">
-          <progressslider :mwidth="mwidth" @change="setTime"></progressslider>
+<!--          <progressslider :mwidth="mwidth" @change="setTime"></progressslider>-->
           <div class="time">
             <span id="cur">{{time.start}}</span>
             <span id="total">{{time.end}}</span>
           </div>
+          <el-slider v-model="val" class="playSlider" height="24" :format-tooltip="formatTooltip"  :max="sliderMax" :min="sliderMin"></el-slider>
         </div>
         <div class="oper f-fl">
           <a href="javascript:;" hidefocus="true" data-action="like" class="icn icn-add j-flag" title="收藏">收藏</a>
@@ -29,10 +30,6 @@
         </div>
         <div class="ctrl f-fl f-pr j-flag">
           <div class="m-vol">
-<!--            <div class="barbg"></div>-->
-<!--            <div class="vbg j-t"><div class="curr j-t" :style="{height: vbgH+'px'}"></div>-->
-<!--              <span class="btn f-alpha j-t" @ondrag.native="testmVol" :style="{top:mVolValue+'px'}"  @touchstart.stop="handleTouchStartMVol" @touchend.stop="handleTouchEndMVol"  @touchcancel.stop="handleTouchEndMVol"></span>-->
-<!--            </div>-->
             <el-slider
               class="barbg"
               v-model="value"
@@ -44,7 +41,7 @@
           <a href="javascript:;" hidefocus="true" data-action="mode" class="icn icn-loop" title="循环"></a>
           <span class="add f-pr">
 <span class="tip" style="display:none;">已添加到播放列表</span>
-<a href="javascript:;" title="播放列表" hidefocus="true" data-action="panel" class="icn icn-list s-fc3">0</a>
+<a href="javascript:;" title="播放列表" hidefocus="true" data-action="panel" class="icn icn-list s-fc3">{{playListData.length}}</a>
 </span>
           <div class="tip tip-1" style="display:none;">循环</div>
         </div>
@@ -53,19 +50,66 @@
     <div class="list">
       <div class="listhd">
         <div class="listhdc">
-          <h4>播放列表(<span class="j-flag">0</span>)</h4>
+          <h4>播放列表(<span class="j-flag">{{playListData.length}}</span>)</h4>
           <a href="javascript:;" class="addall" data-action="likeall"><span class="ico ico-add"></span>收藏全部</a><span class="line"></span>
           <a href="javascript:;" class="clear" data-action="clear"><span class="ico icn-del"></span>清除</a>
           <p class="lytit f-ff0 f-thide j-flag"></p>
           <span class="close" data-action="close">关闭</span>
         </div>
       </div>
-
-
       <div class="listbd">
         <img class="imgbg j-flag">
         <div class="msk"></div>
-        <div class="listbdc j-flag"><div class="nocnt"><i class="ico ico-face"></i> 你还没有添加任何歌曲<br>去首页<a href="/discover/" class="f-tdu" style="color: #91acda">发现音乐</a>，或在<a href="/my/" class="f-tdu">我的音乐</a>收听自己收藏的歌单。</div></div>
+        <div class="listbdc j-flag">
+          <div class="nocnt" v-if="textShow">
+            <i class="ico ico-face"></i> 你还没有添加任何歌曲<br>去首页<a href="/discover/" class="f-tdu" style="color: #91acda">发现音乐</a>，或在<a href="/my/" class="f-tdu">我的音乐</a>收听自己收藏的歌单。
+          </div>
+          <div v-else-if="!textShow">
+            <el-table
+              :data="playListData"
+              style="width: 100%;height:301px;overflow: scroll;font-size: 12px;background: #000"
+              width="100%"
+            >
+              <el-table-column
+                prop="name"
+                align="left"
+              >
+              </el-table-column>
+              <el-table-column
+                width="180"
+                align="center"
+              >
+                <template slot-scope="scope">
+                      <i @click="addPlaylist(scope.row)"  class="playIcon el-icon-video-play" title="播放"></i>
+                      <i class="playIcon el-icon-delete" title="删除" data-action="delete"></i>
+                      <i class="playIcon el-icon-download" title="下载"  data-action="download"></i>
+                      <i class="playIcon el-icon-share" title="分享" data-action="share"></i>
+                      <i class="playIcon el-icon-folder-add" title="收藏"  data-action="like"></i>
+                </template>
+              </el-table-column>
+
+              <el-table-column
+                align="center"
+                >
+                <template slot-scope="scope">
+                  <!--                      {{scope.row.ar[0].name}}-->
+                  {{transitionMoment(scope.row.dt)}}
+                </template>
+              </el-table-column>
+<!--              <el-table-column-->
+<!--                prop="name"-->
+<!--              >-->
+<!--              </el-table-column>-->
+              <el-table-column
+                align="right"
+              >
+                <template slot-scope="scope">
+                  {{scope.row.al.name}}
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </div>
         <div class="bline j-flag" ><span class="scrol" hidefocus="true" style="height: 260px; display: none; top: 0px;"></span></div>
         <div class="ask j-flag" >
           <a class="ico ico-ask"></a>
@@ -85,6 +129,7 @@
   import Progressslider from '../Progressslider/Progressslider.vue';
   import {mapState} from 'vuex'
   import {changeTime} from '../../common/js/changeTime';
+  import moment from 'moment'
   export default {
     name: "player",
     data(){
@@ -92,6 +137,13 @@
         afn :function () {
           console.log('ces')
         },
+        playTrue:"playTrue",
+        playFalse:'playFalse',
+        playBgIndex:false,
+        sliderMax:600,
+        sliderMin:0,
+        val: 0,
+        value4:50,
         value:50,
         start:true,
         startH:'',
@@ -109,20 +161,64 @@
         songname: '暂无歌曲',
         list: [],
         mwidth: 0,
+        textShowBool:false,
         audiourl:"http://m10.music.126.net/20190612173251/7e2d11182ee782ddc4229fd238a46f1a/ymusic/6b92/2350/20dd/998837ccdd15253f0d85eaf95cb97786.flac",
         time: {
           start: '00:00',
-          end: '04:00'
+          end: '00:00'
         },
       }
     },
-    // computed:mapState({test1:'playList'}),
-    computed:{
-      mVolValue(){
-        return this.mVolTop
+    computed:mapState({
+      playListData:'playList',
+      currentPlayA:'currentPlay',
+      textShow:function(){
+        return this.textShowBool;
       }
+    }),
+  watch:{
+    currentPlayA:function (value,oldV) {
+      console.log('dsadsadsad')
+      this.axios.get('/song/url?id='+value.id).then(res=>{
+        if (res.data.data[0].url === null) {
+          console.log('歌曲加载错误');
+        } else {
+          this.audiourl = res.data.data[0].url;
+          this.canPlaySong();
+          this.$nextTick(() => {
+            this.canPlaySong();
+          });
+        }
+      })
     },
+    playListData:function (newValue) {
+     if(newValue.length > 0){
+       this.textShowBool = false
+     } else {
+       this.textShowBool = true
+     }
+    }
+  },
     methods:{
+      formatTooltip(val) {
+        let m = parseInt(val/60);
+        let s = val % 60
+        console.log(m)
+        console.log(s)
+        console.log('绑定的值')
+        console.log(this.val)
+        if(s == 0){
+          s = '00'
+        }else {
+          if(s<10){
+            s = '0'+ s
+          }
+        }
+        return m+':'+s
+      },
+      tableRowClassName(){
+
+      },
       testmVol(){
         console.log('testmVol')
       },
@@ -217,6 +313,24 @@
           }
         }
       },
+      controlPlayer(){
+        console.log('播放');
+        console.log(this.playBgIndex);
+        if(this.playListData.length === 0){
+          this.playBgIndex = !this.playBgIndex
+        }else {
+          this.playBgIndex = !this.playBgIndex;
+          this.playBgIndex === true ? document.getElementById('audioPlay').play() :document.getElementById('audioPlay').pause()
+        }
+      },
+      controlPlayerPrv(){
+        this.$store.dispatch('playPrv')
+        this.addPlaylist(this.playListData[this.$store.state.index])
+      },
+      controlPlayerNext(){
+        this.$store.dispatch('increment')
+        this.addPlaylist(this.playListData[this.$store.state.index])
+      },
       playsong(index, item) {
         console.log(index);
         this.hidelist();
@@ -262,16 +376,30 @@
       togglePlay() {
         if (this.playing === false) {
           document.getElementById('audioPlay').pause();
+          this.playBgIndex = 1;
           this.playing = true;
         } else {
           document.getElementById('audioPlay').play();
+          this.playBgIndex = 0;
           this.playing = false;
         }
       },
       updateTime() {
+        console.log('更新时间');
         var myaudio = document.getElementById('audioPlay');
         var time = parseInt(myaudio.currentTime);
         var timelength = myaudio.duration;
+        // console.log('现在时间')
+        // console.log(time)
+        // console.log('完成时间')
+        // console.log(timelength)
+        // console.log('状态')
+        console.log(myaudio.ended)
+        if(myaudio.ended === true){
+          this.$store.dispatch('increment');
+          console.log(this.$store.state.index)
+          this.addPlaylist(this.playListData[this.$store.state.index])
+        }
         if (isNaN(timelength)) {
           this.tipshow = true;
         } else {
@@ -279,7 +407,11 @@
           this.mwidth = time / timelength * 100;
           this.time.start = changeTime(time);
           this.time.end = changeTime(timelength);
+          this.val = time;
+          this.sliderMax = Math.floor(timelength)
+          timelength = parseInt(timelength)
           if (timelength === time) {
+            console.log('播放完毕')
             this.togglePlay();
           }
         }
@@ -296,6 +428,7 @@
             console.log('歌曲加载错误');
           } else {
             this.audiourl = res.data.data[0].url;
+            this.playBgIndex = true;
             this.canPlaySong();
             this.$nextTick(() => {
               this.canPlaySong();
@@ -332,6 +465,7 @@
   }
 </script>
 <style scoped>
+
   .playbd{
     position: absolute;
     bottom:0;
@@ -368,6 +502,8 @@
   .btns .next:hover{
     background: url("../../assets/playbar.png") -110px -130px no-repeat;
   }
+
+
   .btns .play{
     display: block;
     float: left;
@@ -376,6 +512,11 @@
     margin-right: 8px;
     margin-top: 0;
     text-indent: -9999px;
+  }
+  .playTrue{
+    background: url("../../assets/playbar.png") 0 -165px no-repeat;
+  }
+  .playFalse{
     background: url("../../assets/playbar.png") 0 -204px no-repeat;
   }
   .btns .next{
@@ -390,8 +531,8 @@
   }
   .progress{
     width:60%;
-    padding-left:12%;
-    padding-right:12%;
+    padding-left:6%;
+    padding-right:6%;
     height: 24px;
     /*margin:0 auto;*/
     position:relative  ;
@@ -786,5 +927,24 @@
     cursor: pointer;
     /*background-position: -195px 9px;*/
      background: url("../../assets/playlist.png") -195px 9px no-repeat;
+  }
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
+.playIcon{
+  margin-right:10px ;
+  font-weight: bold;font-size: 18px;
+  cursor: pointer
+}
+  .playIcon:hover{
+    color: white;
+  }
+  .playSlider{
+    width: 100%;
+    position: relative;
+    top: -5px;
+    display: flex;
+    cursor: default;
+    outline: none;
   }
 </style>

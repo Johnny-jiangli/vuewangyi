@@ -14,11 +14,25 @@ export default new Vuex.Store({
     count:0,
     playList:[],
     index:0,
-
+    currentPlay:{},
   },
   mutations: {
+    currentPlay(state,data){
+      state.currentPlay = JSON.parse(data)
+    },
     increment (state) {
-      state.count++
+      if(state.index  === state.playList.length-1){
+        state.index = 0
+      }else {
+        state.index++
+      }
+    },
+    playPrv(state){
+      if(state.index === 0){
+        state.index = state.playList.length-1
+      }else {
+        state.index--;
+      }
     },
     [types.LOGIN]: (state, data) => {
       localStorage.token = data;
@@ -52,6 +66,12 @@ export default new Vuex.Store({
     }
   },
   actions:{
+    playPrv:({commit})=>{
+      commit('playPrv')
+    },
+    currentPlay({commit},data){
+      commit('currentPlay',data)
+    },
     increment (context) {
       context.commit('increment')
     },

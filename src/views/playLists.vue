@@ -3,9 +3,9 @@
       <el-row>
         <el-col>
           <div class="">
-            <audio :src="audiourl"  id="audioPlay" @canplay="canPlaySong"
-                   @timeupdate="updateTime"
-                   controls></audio>
+<!--            <audio :src="audiourl"  id="audioPlay" @canplay="canPlaySong"-->
+<!--                   @timeupdate="updateTime"-->
+<!--                   controls></audio>-->
           </div>
           <el-button @click="deleteAllPlay">清空</el-button>
           <div v-for="(item,index) in test1" :key="index">
@@ -273,6 +273,7 @@
         addPlaylist(data){
           let obj =JSON.stringify(data);
           this.$store.dispatch('pushPlayList',obj);
+          this.$store.dispatch('currentPlay',obj);
           this.axios.get('/song/url?id='+data.id).then(res=>{
             if (res.data.data[0].url === null) {
               console.log('歌曲加载错误');

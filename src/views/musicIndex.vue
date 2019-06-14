@@ -4,7 +4,7 @@
         <el-header height="70">
           <index-header></index-header>
         </el-header>
-        <el-main style="overflow-y: scroll;overflow-x:scroll;height: auto;min-width: 1120px">
+        <el-main style="overflow-y: scroll;overflow-x:scroll;height: 1884px;min-width: 1120px">
 <!--          <index-layout></index-layout>-->
           <router-view></router-view>
         </el-main>
