@@ -7,38 +7,38 @@ import * as types from '../store/types'
 Vue.use(VueRouter)
 
 const routes= [
-    {
-      path: '/',
-      name: 'index',
-      component: () => import('@/views/index'),
-      redirect:to=>{
-        return '/discover/recommend'
-      },
-      title: '发现音乐',
-      children: [
-        {path:'/my',title:'我的音乐',component:()=> import('@/views/my')},
-        {path:'/friend',title:'朋友',component:()=> import('@/views/friend')},
-        {path:'/store/product',title:'商城',component:()=> import('@/views/store')},
-        {path:'/nmusician/web/index',title:'音乐人',component:()=> import('@/views/nmusician')},
-        {path:'/download',title:'下载客户端',component:()=> import('@/views/download')},
-        {
-          path:'/discover',
-          title:'发现音乐',
-          component:()=> import('@/views/discover'),
-          children:[
-            {path:'recommend',title:'推荐',component:()=> import('@/views/recommend')},
-            {path:'toplist',title:'排行榜',component:()=> import('@/views/toplist')},
-            {path:'playlist', title:'歌单',component:()=> import('@/views/playlist')},
-            {path:'playlists/:id', title:'歌单',component:()=> import('@/views/playLists')},
-            {path:'djradio',title:'主播电台',component:()=>import('@/views/djradio')}
-          ]
-        },
-      ]
-    },
   {
-    path:'/musicIndex',
+    path:'/',
     name:'musicIndex',
-    component:()=>import('@/views/musicIndex')
+    component:()=>import('@/views/musicIndex'),
+    redirect:to=>{
+      return '/discover'
+    },
+    title: '发现音乐',
+    children: [
+      {path:'/my',title:'我的音乐',component:()=> import('@/views/my')},
+      {path:'/friend',title:'朋友',component:()=> import('@/views/friend')},
+      {path:'/store/product',title:'商城',component:()=> import('@/views/store')},
+      {path:'/nmusician/web/index',title:'音乐人',component:()=> import('@/views/nmusician'),redirect:to=>{return 'www.baidu.com'}},
+      {path:'/download',title:'下载客户端',component:()=> import('@/views/download')},
+      {path:'/test',title:'test',component:()=> import('@/views/indexLayout')},
+      {
+        path:'/discover',
+        title:'发现音乐',
+        component:()=> import('@/views/discover'),
+        redirect:to=>{
+          return '/discover/recommend'
+        },
+        children:[
+          {path:'recommend',title:'推荐',component:()=> import('@/views/indexLayout')},
+          {path:'toplist',title:'排行榜',component:()=> import('@/views/toplist')},
+          {path:'playlist/:cat',meta:{title:'获取精准分类歌单',code:100}, title:'歌单',component:()=> import('@/views/playlist')},
+          {path:'playlist', meta:{ title:'全部歌单',code:200},component:()=> import('@/views/playlist')},
+          {path:'playlists/:id', title:'歌单',component:()=> import('@/views/playLists')},
+          {path:'djradio',title:'主播电台',component:()=>import('@/views/djradio')}
+        ]
+      },
+    ]
   }
   ]
 

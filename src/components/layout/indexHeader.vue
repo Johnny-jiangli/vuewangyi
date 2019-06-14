@@ -10,14 +10,18 @@
       active-text-color="#fff">
       <h1 class="logo" @click="clickGoIndexPath">
       </h1>
-      <el-menu-item index="1">
+      <el-menu-item index="/">
         发现音乐
       </el-menu-item>
       <el-menu-item index="/my" >我的音乐</el-menu-item>
       <el-menu-item index="/friend" >朋友</el-menu-item>
-      <el-menu-item index="/store/product" >商城</el-menu-item>
-      <el-menu-item index="/nmusician/web/index" >音乐人</el-menu-item>
-        <el-menu-item index="/download" >
+      <el-menu-item index="/store/product" >
+        <a href="https://music.163.com/store/product" target="_blank">商城</a>
+        </el-menu-item>
+      <el-menu-item index="" >
+        <a href="https://music.163.com/nmusician/web/index#/" target="_blank">音乐人</a>
+        </el-menu-item>
+      <el-menu-item index="/download" >
           下载客户端
           <el-badge value="HOT" class="headerBadge">
           </el-badge>

@@ -4,15 +4,9 @@
         <el-header height="70">
           <index-header></index-header>
         </el-header>
-        <el-main style="overflow-y: scroll;height: 1500px">
-          <tag></tag>
-          <recommend></recommend>
-          <div style="width: 986px;margin: 0 auto;background-color: #91acda">
-            <div style="width: 500px;height: 500px" v-for="(item,index) in 6">
-<!--              <tag-content-box ></tag-content-box>-->
-              <div>{{item ,index}}</div>
-            </div>
-          </div>
+        <el-main style="overflow-y: scroll;overflow-x:scroll;height: auto;min-width: 1120px">
+<!--          <index-layout></index-layout>-->
+          <router-view></router-view>
         </el-main>
         <el-footer>
           <player></player>
@@ -21,12 +15,9 @@
     </div>
 </template>
 <script>
-  import tagContentBox from '../components/tagContentBox'
-
   import Player from '../components/player/Player'
   import indexHeader from '../components/layout/indexHeader'
-  import recommend from './recommend'
-  import tag from '../components/tag'
+  import indexLayout from './indexLayout'
     export default {
         name: "musicIndex",
       data(){
@@ -35,9 +26,7 @@
       components:{
           indexHeader,
           Player,
-          recommend,
-         tag,
-        tagContentBox
+          indexLayout
       }
     }
 </script>

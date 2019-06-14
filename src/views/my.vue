@@ -1,7 +1,6 @@
 <template>
     <div>
-      <header-menu></header-menu>
-      <p>dsadsa</p>
+      <p>我的朋友</p>
     </div>
 </template>
 
