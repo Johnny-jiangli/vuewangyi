@@ -11,14 +11,13 @@
               <span class="f-fl">入驻歌手</span>
               <a href="/discover/artist/signed/" class="more s-fc3">查看全部 &gt;</a>
             </h3>
-            <div class="clearfix"></div>
+
+            <aside-sub v-for="artistsItem in artists" :user-data="artistsItem"></aside-sub>
             <aside-sub></aside-sub>
             <aside-sub></aside-sub>
             <aside-sub></aside-sub>
             <aside-sub></aside-sub>
-            <aside-sub></aside-sub>
-            <aside-sub></aside-sub>
-            <aside-sub></aside-sub>
+            <div style="clear:both"></div>
             <div class="yinyueren">
               <el-button size="mini">申请成为音乐人</el-button>
             </div>
@@ -56,6 +55,7 @@
     },
     data(){
       return {
+        artists:[],
         carouselBackgroun:{
           backgroundImage: 'http://p1.music.126.net/XL883PoZ7LuOafyZ9bixrw==/109951164138100218.jpg',
           backgroundRepeat: 'repeat-x'
@@ -173,11 +173,26 @@
         console.log(item)
         this.$router.push('playlists/'+item.targetId)
       },
+      getTopList(){
+        this.axios.get('/artist/list?cat=5001&initial=b&limit=5').then(res=>{
+          console.log('11111歌手榜')
+          console.log(res)
+          this.artists = res.data.artists
+        })
+      },
+      getMusicDes(){
+        this.axios.get('/artist/desc?id=10559').then(res=>{
+          console.log('获取音乐人信息')
+          console.log(res)
+        })
+      }
 
     },
     mounted() {
       console.log('recommend')
       this.getData();
+      this.getTopList();
+      this.getMusicDes()
     }
   }
 </script>

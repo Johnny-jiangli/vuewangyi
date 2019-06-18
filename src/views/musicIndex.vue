@@ -1,10 +1,9 @@
 <template>
-    <div>
       <el-container>
         <el-header height="70">
           <index-header></index-header>
         </el-header>
-        <el-main style="overflow-y: scroll;overflow-x:scroll;height: 1884px;min-width: 1120px">
+        <el-main>
 <!--          <index-layout></index-layout>-->
           <router-view></router-view>
         </el-main>
@@ -12,12 +11,11 @@
           <player></player>
         </el-footer>
       </el-container>
-    </div>
 </template>
 <script>
   import Player from '../components/player/Player'
   import indexHeader from '../components/layout/indexHeader'
-  import indexLayout from './indexLayout'
+  import indexLayout from './recommend'
     export default {
         name: "musicIndex",
       data(){

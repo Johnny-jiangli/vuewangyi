@@ -1,14 +1,14 @@
 <template>
     <div class="asideCon">
-      <el-card :body-style="{ padding: '0 0' }" shadow="hover">
+      <el-card :body-style="{ padding: '0 0' }" shadow="hover" style="cursor: pointer" >
             <el-row>
               <el-col :span="8">
-                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+                <img :src="userData.img1v1Url" class="image" @click.stop="clickCard">
               </el-col>
-              <el-col :span="16">
-                <div style="padding:0 14px;">
-                  <h5>张惠妹</h5>
-                  <p>台湾歌手张惠妹</p>
+              <el-col :span="16" style="-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;">
+                <div style="padding:5px 14px;" @click.stop="clickCard">
+                  <h5>{{userData.name}}</h5>
+                  <p>{{userData.name}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -19,18 +19,27 @@
 <script>
     export default {
         name: "asideSub",
+      props:{
+        userData:Object
+      },
       data(){
           return {
             currentDate: new Date()
           }
+      },
+      methods:{
+        clickCard(){
+          console.log('点击')
+          this.$router.push({path:'/artist?id='+this.userData.name})
+        }
       }
     }
 </script>
 
 <style scoped>
   .image {
-    width: 100%;
-    height: 100%;
+    width: 76px;
+    height: 76px;
     display: block;
   }
   .asideCon{

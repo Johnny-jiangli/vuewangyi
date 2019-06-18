@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div id="tagContenWarp">
       <div>
         <div style="padding:10px 20px">
           <div class="v-hd2">
@@ -47,26 +47,75 @@
             <span class="more"><a href="/discover/album/" class="s-fc3">更多</a><i class="cor s-bg s-bg-6">&nbsp;</i></span>
           </div>
         </div>
-        <el-row :gutter="20" class="tagContentImg">
-          <el-col :span="6" v-for="(item,key,index) in playList" :key="index" style="position: relative;margin-bottom: 50px">
-            <el-image
-              style="width: 144px;height: 144px"
-              :src="item.picUrl"
-              fit="cover"
-              @click="testClick(item.id)">
-            </el-image>
-            <div class="videoPlay">
-            <span style="color: #fff;font-size: 12px;display: flex;flex-direction: row;justify-content: space-between;align-items: baseline">
-              <div style="font-size: 12px">
-                <i class="el-icon-headset" style="margin-left: 10px"></i>
-                <span>{{playCount(item.playCount)}}</span>
+        <el-row>
+          <el-carousel :interval="50000" arrow="always" height="180px" >
+            <el-carousel-item v-for="carouselItem in 2" :key="carouselItem">
+              <div v-if="carouselItem === 1" style="display: flex;flex-direction: row;align-items: center;">
+                <div class="mCarouselItem">
+                    <img :src="albums[0].picUrl" alt="" >
+                    <a :title="albums[0].name"  :href="formatUrl(albums[0].id)" class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[0].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[0].artist.name}}</a></p>
+                </div>
+                <div class="mCarouselItem">
+                  <img :src="albums[1].picUrl" alt="" >
+                  <a :title="albums[1].name"  :href="formatUrl(albums[1].id)" class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[1].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[1].artist.name}}</a></p>
+                </div>
+                <div class="mCarouselItem">
+                  <img :src="albums[2].picUrl" alt="">
+                  <a :title="albums[2].name"  :href="formatUrl(albums[2].id)" class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[2].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[2].artist.name}}</a></p>
+                </div >
+                <div class="mCarouselItem">
+                  <img :src="albums[3].picUrl" alt="" >
+                  <a :title="albums[3].name"  :href="formatUrl(albums[3].id)" class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[3].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[3].artist.name}}</a></p>
+                </div>
+                <div class="mCarouselItem">
+                  <img :src="albums[4].picUrl" alt="" >
+                  <a :title="albums[4].name"  :href="formatUrl(albums[4].id)" class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[4].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[4].artist.name}}</a></p>
+                </div>
               </div>
-              <i class="el-icon-video-play" style="color: #91acda;margin-right: 10px;font-size: 20px" ></i>
-            </span>
-
-            </div>
-            <a href="javascript:;" class="demonstration" style="height: 30px;font-size: 14px;color: #000;cursor: pointer;" @click="clickPlay(item.id)">{{ item.name }}</a>
-          </el-col>
+              <div v-else-if="carouselItem === 2" style="display: flex;flex-direction: row;align-items: center">
+                <div class="mCarouselItem">
+                  <img :src="albums[5].picUrl" alt="" >
+                  <a :title="albums[5].name"  :href="formatUrl(albums[5].id)" class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[5].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[5].artist.name}}</a></p>
+                </div>
+                <div class="mCarouselItem">
+                  <img :src="albums[6].picUrl" alt="" >
+                  <a :title="albums[6].name"  :href="formatUrl(albums[6].id)"class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[6].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[6].artist.name}}</a></p>
+                </div>
+                <div class="mCarouselItem">
+                  <img :src="albums[7].picUrl" alt="">
+                  <a :title="albums[7].name"  :href="formatUrl(albums[7].id)" class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[7].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[7].artist.name}}</a></p>
+                </div >
+                <div class="mCarouselItem">
+                  <img :src="albums[8].picUrl" alt="" >
+                  <a :title="albums[8].name"  :href="formatUrl(albums[8].id)" class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[8].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[8].artist.name}}</a></p>
+                </div>
+                <div class="mCarouselItem">
+                  <img :src="albums[9].picUrl" alt="" >
+                  <a :title="albums[9].name" :href="formatUrl(albums[9].id)" class="msk"></a>
+                  <p style="font-size: 16px;height:20px;line-height: 20px;color: #99a9bf;margin: 0 ;padding: 0 "><a href="javascript:;" >{{albums[9].name}}</a></p>
+                  <p style="font-size: 16px;height: 20px;line-height: 20px;color: #99a9bf;margin: 0 0;padding: 0 0"><a href="javascript:;">{{albums[9].artist.name}}</a></p>
+                </div>
+              </div>
+            </el-carousel-item>
+          </el-carousel>
         </el-row>
       </div>
       <div>
@@ -76,25 +125,74 @@
             <span class="more"><a href="/discover/toplist" class="s-fc3">更多</a><i class="cor s-bg s-bg-6">&nbsp;</i></span>
           </div>
         </div>
-        <el-row :gutter="20" class="tagContentImg">
-          <el-col :span="6" v-for="(item,key,index) in playList" :key="index" style="position: relative;margin-bottom: 50px">
-            <el-image
-              style="width: 144px;height: 144px"
-              :src="item.picUrl"
-              fit="cover"
-              @click="testClick(item.id)">
-            </el-image>
-            <div class="videoPlay">
-            <span style="color: #fff;font-size: 12px;display: flex;flex-direction: row;justify-content: space-between;align-items: baseline">
-              <div style="font-size: 12px">
-                <i class="el-icon-headset" style="margin-left: 10px"></i>
-                <span>{{playCount(item.playCount)}}</span>
-              </div>
-              <i class="el-icon-video-play" style="color: #91acda;margin-right: 10px;font-size: 20px" ></i>
-            </span>
-
-            </div>
-            <a href="javascript:;" class="demonstration" style="height: 30px;font-size: 14px;color: #000;cursor: pointer;" @click="clickPlay(item.id)">{{ item.name }}</a>
+        <el-row :gutter="20" class="tagContentImg" style="border:1px #99a9bf solid;padding:10px 10px;margin: 0 20px">
+          <el-col :span="8" style="background-color: #99a9bf">
+              <dl>
+                <dt>
+                  <h3>
+                    {{listOneName}}
+                  </h3>
+                </dt>
+                <dd>
+                  <ol>
+                    <li v-for="listOneItem in listOne">
+                      <a href="">
+                        {{listOneItem.name}}
+                      </a>
+                      <div class="oper">
+                        <a href="#" class="s-bg s-bg-11" title="播放" hidefocus="true" data-res-type="18" data-res-id="1371516984" data-res-action="play" data-res-from="31" data-res-data="3779629"></a>
+                        <a href="#" class="u-icn u-icn-81" title="添加到播放列表" hidefocus="true" data-res-type="18" data-res-id="1371516984" data-res-action="addto" data-res-from="31" data-res-data="3779629"></a>
+                        <a href="#" class="s-bg s-bg-12" title="收藏" hidefocus="true" data-res-level="0" data-res-fee="8" data-res-type="18" data-res-id="1371516984" data-res-action="subscribe"></a>
+                      </div>
+                    </li>
+                  </ol>
+                </dd>
+                <dd style="text-align: right">更多</dd>
+              </dl>
+          </el-col>
+          <el-col :span="8" style="background-color: #91acda">
+            <dl>
+              <dt>
+                <h3>{{listTwoName}}</h3>
+              </dt>
+              <dd>
+                <ol>
+                  <li v-for="listTwoItem in listTwo">
+                    <a href="">
+                      {{listTwoItem.name}}
+                    </a>
+                    <div class="oper">
+                      <a href="#" class="s-bg s-bg-11" title="播放" hidefocus="true" data-res-type="18" data-res-id="1371516984" data-res-action="play" data-res-from="31" data-res-data="3779629"></a>
+                      <a href="#" class="u-icn u-icn-81" title="添加到播放列表" hidefocus="true" data-res-type="18" data-res-id="1371516984" data-res-action="addto" data-res-from="31" data-res-data="3779629"></a>
+                      <a href="#" class="s-bg s-bg-12" title="收藏" hidefocus="true" data-res-level="0" data-res-fee="8" data-res-type="18" data-res-id="1371516984" data-res-action="subscribe"></a>
+                    </div>
+                  </li>
+                </ol>
+              </dd>
+              <dd style="text-align: right">更多</dd>
+            </dl>
+          </el-col>
+          <el-col :span="8">
+            <dl>
+              <dt>
+                <h3>{{listThereName}}</h3>
+              </dt>
+              <dd>
+                <ol>
+                  <li v-for="listThereItem in listThere">
+                    <a href="">
+                      {{listThereItem.name}}
+                    </a>
+                    <div class="oper">
+                      <a href="#" class="s-bg s-bg-11" title="播放" hidefocus="true" data-res-type="18" data-res-id="1371516984" data-res-action="play" data-res-from="31" data-res-data="3779629"></a>
+                      <a href="#" class="u-icn u-icn-81" title="添加到播放列表" hidefocus="true" data-res-type="18" data-res-id="1371516984" data-res-action="addto" data-res-from="31" data-res-data="3779629"></a>
+                      <a href="#" class="s-bg s-bg-12" title="收藏" hidefocus="true" data-res-level="0" data-res-fee="8" data-res-type="18" data-res-id="1371516984" data-res-action="subscribe"></a>
+                    </div>
+                  </li>
+                </ol>
+              </dd>
+              <dd style="text-align: right">更多</dd>
+            </dl>
           </el-col>
         </el-row>
       </div>
@@ -122,16 +220,58 @@
           fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
           url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
           playList:[],
+          albums:[],
+          listOne:[],
+          listTwo:[],
+          listThere:[],
+          listOneName:'',
+          listTwoName:'',
+          listThereName:''
         }
       },
       methods:{
-          getRecommendPlayListData(){
+          getAlbumData(){
+            this.axios.get('/top/album?offset=0&limit=10').then(res=>{
+              console.log('新碟上架')
+              console.log(res)
+              this.albums = res.data.albums
+            })
+          },
+
+        getRecommendPlayListData(){
             this.axios.get('personalized').then((res)=>{
               console.log('推荐歌单')
               console.log(res)
               this.playList = res.data.result.slice(0,8);
             })
           },
+        getListDataId(){
+           return [this.axios.get('/top/list?idx=0'),this.axios.get('/top/list?idx=1'),this.axios.get('/top/list?idx=2')]
+        },
+        // getListDataId2(){
+        //   return this.axios.get('/top/list?idx=1')
+        // },
+        // getListDataId3(){
+        //   return this.axios.get('/top/list?idx=2')
+        // },
+
+        getSuoData(){
+          this.axios.all(this.getListDataId()).then(
+            this.axios.spread((acct, perms,a) =>{
+              console.log('3个请求执行完了')
+
+              console.log(acct.data.playlist.name)
+              console.log(perms.data.playlist.name)
+              console.log(a.data.playlist.name)
+              this.listOne=acct.data.playlist.tracks.splice(0,10);
+              this.listTwo=perms.data.playlist.tracks.splice(0,10);
+              this.listThere=a.data.playlist.tracks.splice(0,10);
+              this.listOneName = acct.data.playlist.name
+              this.listTwoName=perms.data.playlist.name;
+              this.listThereName=a.data.playlist.name;
+            })
+          )
+        },
         playCount(count){
           return parseInt(count)
         },
@@ -144,16 +284,52 @@
         testClick(id){
             console.log('测试')
             this.$router.push('playlists/'+id)
+        },
+        formatUrl(id){
+          return '/album?id='+id
         }
       },
-      computed:{},
+      computed:{
+
+      },
       mounted() {
           this.getRecommendPlayListData()
+        this.getAlbumData()
+        this.getSuoData();
       }
     }
 </script>
 
 <style scoped>
+   .msk {
+    width: 118px;
+    height: 100px;
+    background:url("../assets/coverall.png") 0 -570px no-repeat;
+  }
+   .msk {
+    position: absolute;
+    top: 5px;
+    left: 12px;
+     z-index: 99999;
+  }
+  .mCarouselItem{
+    position: relative;
+    padding: 5px 15px 10px 15px;
+    top: 15px;
+    left: 30px;
+    height: 150px;
+    width: 128px;
+    text-overflow: ellipsis;
+    white-space: nowrap;/*禁止自动换行*/
+    overflow: hidden;
+  }
+   .mCarouselItemImg{
+
+   }
+  .mCarouselItem img{
+    width: 100px;
+    height: 100px;
+  }
   .tagContentImg{
     display:flex;
     height: auto;

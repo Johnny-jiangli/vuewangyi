@@ -4,7 +4,16 @@
           <header-menu></header-menu>
         </el-header>
         <el-main>
-          <router-view></router-view>
+<!--          <router-view></router-view>-->
+          <div style="height: 400px">dsad</div>
+          <div style="height: 400px">dsad</div>
+          <div style="height: 400px">dsad</div>
+          <div style="height: 400px">dsad</div>
+          <div style="height: 400px">dsad</div>
+          <div style="height: 400px">dsad</div>
+          <div style="height: 400px">dsad</div>
+          <div style="clear: both">
+          </div>
         </el-main>
         <el-footer>
 

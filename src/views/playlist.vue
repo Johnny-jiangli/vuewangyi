@@ -24,20 +24,17 @@
       },
       computed:{
         tit(){
-
           return this.title === '全部歌单'? '全部': this.$route.params.cat
         }
       },
       methods:{
           getRouteTitleData(){
-            console.log('路由信息')
             console.log(this.$route)
             this.title = this.$route.meta.title
           }
       },
       mounted() {
           this.getRouteTitleData()
-
       }
     }
 </script>

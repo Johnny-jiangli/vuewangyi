@@ -1,7 +1,7 @@
 <template>
   <div class="tagSty">
       <ul class="">
-        <li v-for="(item,key,index) in items"  :key="index" @click="active(item.id)"><router-link :to="item.url"  :class="{active: showId == item.id}">{{item.label}}</router-link> </li>
+        <li v-for="(item,key,index) in pathArr"  :key="index" @click="active(item.id)"><router-link :to="item.url"  :class="{active: showId == item.id}">{{item.label}}</router-link> </li>
       </ul>
   </div>
 
@@ -13,13 +13,13 @@
         data(){
           return {
             showId:1,
-            items: [
+            pathArr: [
               { id:1,type: '', label: '推荐' ,url:'/discover/recommend'},
-              { id:2,type: 'success', label: '排行榜' ,url:'/discover/toplist'},
-              { id:3,type: 'info', label: '歌单' ,url:'/discover/playlist'},
-              { id:4,type: 'danger', label: '主播电台', url:'/discover/djradio'},
-              { id:5,type: 'warning', label: '歌手' ,url:'/discover'},
-              { id:6,type: 'warning', label: '新歌上架',url:'/discover' }
+              { id:2, label: '排行榜' ,url:'/discover/toplist'},
+              { id:3,label: '歌单' ,url:'/discover/playlist'},
+              { id:4,label: '主播电台', url:'/discover/djradio'},
+              { id:5, label: '歌手' ,url:'/discover/artist'},
+              { id:6,type: 'warning', label: '新歌上架',url:'/discover/album' }
             ]
           }
         },
@@ -27,7 +27,19 @@
         active(id){
           this.showId = id;
           console.log(this.showId)
+        },
+        refreshPage(){
+          let path = this.$route.path;
+          for (let i =0 ,n =this.pathArr.length ; i < n ; i++){
+            if(this.pathArr[i].url === path){
+              this.showId = this.pathArr[i].id
+            }
+          }
+          return false;
         }
+      },
+      mounted() {
+          this.refreshPage()
       }
     }
 </script>
@@ -43,7 +55,6 @@
   justify-items: center;
   justify-content: center;
 }
-
   ul{
     min-width: 500px;
     display: flex;

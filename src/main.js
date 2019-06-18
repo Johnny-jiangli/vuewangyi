@@ -17,6 +17,13 @@ Vue.use(VuePlyr)
 Vue.prototype.axios = axios;
 Vue.config.productionTip = false
 Vue.use(ElementUI);
+import vuescroll from 'vuescroll';
+Vue.use(vuescroll); // install the vuescroll first
+Vue.prototype.$vuescrollConfig = {
+  bar: {
+    background: '#000'
+  }
+};
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

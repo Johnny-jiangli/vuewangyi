@@ -117,8 +117,7 @@
       },
       methods:{
         carouselBg(name,label){
-          console.log('切换')
-          console.log(name)
+
           // this.$set(this.carouselBackgroun,{backgroundImage:this.dataList[name].backgroundUrl,backgroundRepeat:'repeat-y'})
           this.$set(this.carouselBackgroun = {backgroundImage:'url('+this.dataList[name].backgroundUrl+')',backgroundRepeat:'repeat-x'})
           console.log(this.carouselBackgroun)

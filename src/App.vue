@@ -13,20 +13,28 @@ export default {
 </script>
 
 <style>
+  html,body,#app{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    min-width: 1168px;
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   color: #2c3e50;
-  /*margin-top: 60px;*/
-  /*background-color:#42b983;*/
   width: 100%;
-  height: auto;
-  margin: 0;
-  padding: 0;
+  overflow-x: auto;
+  overflow-y: scroll;
+  zoom: 1;
 }
 #app .el-slider__bar{
   background-color: red;
+  overflow: scroll;
 }
 #app .player .el-table thead{
   display: none;
@@ -54,9 +62,16 @@ export default {
     -ms-user-select: none;
     user-select: none;
   }
+  #tagContenWarp .el-carousel__indicators--horizontal{
+    display: none;
+  }
   #app .el-slider.is-vertical .el-slider__runway{
     width: 6px;
     height: 100%;
     margin: 0 20px 0 14px;
+  }
+  #app .el-carousel__arrow .el-carousel__arrow--right{
+    left: -50px;
+    background-color: #2c2c2c;
   }
 </style>
