@@ -7,7 +7,7 @@
         <router-view></router-view>
       </el-main>
       <el-footer>
-        <player></player>
+<!--        <player></player>-->
       </el-footer>
     </el-container>
 </template>

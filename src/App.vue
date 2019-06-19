@@ -19,14 +19,30 @@ export default {
     padding: 0;
     min-width: 1168px;
   }
+  .topListWarp .el-table th{
+    border-left:1px #99a9bf solid ;
+    border-bottom: 1px #99a9bf solid;
+
+  }
+  .topListWarp .el-table th:first-child{
+    border-left:none ;
+  }
+
+  #app .el-table thead {
+    -webkit-box-shadow: inset hoff voff blur #000;
+    -moz-box-shadow: inset hoff voff blur #000;
+    box-shadow: inset hoff voff blur #000;
+  }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  color: #2c3e50;
   width: 100%;
   overflow-x: auto;
   overflow-y: scroll;
