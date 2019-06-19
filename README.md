@@ -1,6 +1,6 @@
 # vue-test
 
-> this is vue app
+> 模仿pc端网易云音乐
 
 ## Build Setup
 
