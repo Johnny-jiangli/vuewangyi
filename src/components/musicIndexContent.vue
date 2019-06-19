@@ -12,7 +12,7 @@
               <a href="/discover/artist/signed/" class="more s-fc3">查看全部 &gt;</a>
             </h3>
 
-            <aside-sub v-for="artistsItem in artists" :user-data="artistsItem"></aside-sub>
+            <aside-sub v-for="(artistsItem,index) in artists" :user-data="artistsItem" :key="index"></aside-sub>
             <aside-sub></aside-sub>
             <aside-sub></aside-sub>
             <aside-sub></aside-sub>

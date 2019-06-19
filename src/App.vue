@@ -29,9 +29,7 @@ export default {
   }
 
   #app .el-table thead {
-    -webkit-box-shadow: inset hoff voff blur #000;
-    -moz-box-shadow: inset hoff voff blur #000;
-    box-shadow: inset hoff voff blur #000;
+    box-shadow: 15px 20px 5px #1a3888;
   }
 #app {
   font-size: 12px;
