@@ -1,6 +1,6 @@
 # 网易云音乐
 
-> 模仿pc端网易云音乐
+> 模仿pc端网易云音乐，api依赖https://binaryify.github.io/NeteaseCloudMusicApi/#/ 请先本地跑起来该服务
 
 ## Build Setup
 
