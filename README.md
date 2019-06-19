@@ -1,6 +1,6 @@
 # 模仿网易云音乐
 
-> 模仿pc端网易云音乐，api依赖https://binaryify.github.io/NeteaseCloudMusicApi/#/ 请先本地跑起来该服务，\n PC WEB端，vue+element 可能其中还有点点bootstrap4.0的东西，但是无伤大雅...
+> 模仿pc端网易云音乐，api依赖https://binaryify.github.io/NeteaseCloudMusicApi/#/ 请先本地跑起来该服务，\n PC WEB端，vue+element+axios+vuex 可能其中还有点点bootstrap4.0的东西，但是无伤大雅...
 
 ## Build Setup
 
